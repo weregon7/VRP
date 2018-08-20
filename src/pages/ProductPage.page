@@ -1,0 +1,55 @@
+<apex:page controller="getCurrentProduct">
+<apex:slds />
+
+<apex:repeat value="{!myData}" var="prod">
+
+<div class="slds-panel  slds-panel_docked slds-panel_docked-left slds-is-open" aria-hidden="false">
+  <div class="slds-panel__header">
+    <h2 class="slds-panel__header-title slds-text-heading_large slds-align_absolute-center "><apex:outputText value="{!prod.Name}" ></apex:outputText></h2>
+    
+  </div>
+  <div class="slds-panel__body">
+          
+       <div class="">
+        <apex:image url="{!prod.Image_URL__c}" width="500px" height="300px" style="float:left;"/>
+        </div>
+      
+      
+          <div class="slds-align_absolute-right slds-text-heading_medium" >
+        <apex:outputText >{!prod.Title__c}</apex:outputText> <br/>
+    </div>
+      
+      
+      <div class="slds-align_absolute-right slds-text-heading_medium " style="margin-top:5%; color: grey;">
+        <apex:outputText >{!prod.Product_Description__c}</apex:outputText> <br/>
+    </div>
+
+
+<div class="slds-align_absolute-center slds-text-heading_medium " style="margin-top:5%; color: red;">
+        <h1 style="color:red;"> Special price: </h1>
+        <apex:outputField value="{!prod.Unit_Price__c}"/>  <br/>
+    </div>
+      
+  </div>
+</div>
+
+ 
+    
+    
+    
+    
+        
+    
+    
+    <div class="slds-truncate slds-align_absolute-center" title="Button" style="height:150px;">
+           
+           <button class="slds-button slds-button_brand">
+               <apex:outputLink value="Buy?id={!prod.Id}">Buy</apex:outputLink>
+           </button>
+            
+        </div>
+    
+</apex:repeat>
+      
+       
+</apex:page>

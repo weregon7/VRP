@@ -1,0 +1,63 @@
+<apex:page controller="getProducts" id="thePage">
+<apex:slds />
+         
+<table class="slds-table slds-table_bordered slds-table_cell-buffer">
+    <thead>
+        <tr class="slds-text-title_caps">
+          <th scope="col">
+            <div class="slds-truncate" title="Image" style="width:200px;">Image</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Account Name" ></div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Title">Title</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Description">Description</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Cost" >Cost</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Button" ></div>
+          </th>
+        </tr>
+</thead>
+    <tbody>
+        <apex:repeat value="{!myData}" var="prod">
+            <tr>
+                <td data-label="Image" class="slds-cell-wrap" >
+                    <div class="slds-truncate " title="productImage" >
+                        <apex:image url="{!prod.Image_URL__c}" style="width:200px; height:150px;"/>
+                    </div>
+                </td>
+  
+      <td data-label="Product Name">
+        <div class="slds-truncate slds-align_absolute-center " style="height: 150px;"  title="Name"><apex:outputLink target="_blank" value="ProductPage?id={!prod.Id}" >{!prod.Name}</apex:outputLink></div>
+      </td>
+      <td data-label="Title">
+        <div class="slds-truncate slds-align_absolute-center"  style="height:150px; width: 300px;" title="Title"><apex:outputText value="{!prod.Title__c}"  style="white-space: normal; "/></div>
+      </td>
+      <td data-label="Description">
+        <div class="slds-truncate" title="Description" style="height:150px; width: 320px; padding-top:35px;">
+            <apex:outputText value="{!IF(LEN(prod.Product_Description__c) > 100, LEFT(prod.Product_Description__c, 100) + '... ', prod.Product_Description__c +' ') }" style="white-space: normal;" />
+            <apex:outputLink value="ProductPage?id={!prod.Id}" target="_blank">More</apex:outputLink>
+            
+        </div>
+      </td>
+      <td data-label="Cost">
+        <div class="slds-truncate slds-align_absolute-center" title="Cost" style="height:150px;"><apex:outputField value="{!prod.Unit_Price__c}"/></div>
+      </td>
+      <td data-label="Button">
+        <div class="slds-truncate slds-align_absolute-center" title="Button" style="height:150px;"><button class="slds-button slds-button_brand">
+            <apex:outputLink value="Buy?id={!prod.Id}">Buy</apex:outputLink>
+        </button></div>
+      </td>
+      
+    </tr>
+      </apex:repeat>      
+  </tbody>
+</table>
+
+</apex:page>

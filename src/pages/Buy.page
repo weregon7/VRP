@@ -1,0 +1,67 @@
+<apex:page controller="Buy" >
+<apex:slds />
+     <apex:pageBlock >
+    <apex:pageMessages ></apex:pageMessages>
+        </apex:pageBlock>
+
+        <apex:form >
+   <apex:repeat value="{!product}" var="prod">
+   <div class="slds-grid slds-gutters">
+
+       <div class="slds-col">
+
+           <div class="slds-form-element">
+                <label class="slds-form-element__label" for="text-input-id-1">Enter your First Name</label>
+                <div class="slds-form-element__control">
+                         <apex:inputText value="{!firstName}" styleClass="slds-input" style="width:300px;"/>
+                </div>
+
+                    <label class="slds-form-element__label" for="text-input-id-2">Enter your Last Name</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText value="{!lastName}" styleClass="slds-input" style="width:300px;"/>
+                    </div>
+
+                    <label class="slds-form-element__label" for="text-input-id-3">Enter your Email</label>
+                    <div class="slds-form-element__control">
+                        <apex:inputText value="{!email}" styleClass="slds-input" style="width:300px;"/>
+                    </div>
+                </div>
+           </div>
+
+
+                    <div class="slds-col" style="margin-top:3%;">
+                        <div class="slds-text-heading_small" style="margin-bottom:3%;">Your product:
+                            <span class="slds-badge">{!prod.Name}</span>
+                        </div>
+
+                        <div class="slds-text-heading_small">
+                           How much units?
+                                <apex:inputText value="{!units}" styleClass="slds-input" style="width:45px; margin-left:2%">
+                                <apex:actionSupport event="onchange" action="{!calculating}" reRender="cost"/>
+                                </apex:inputText>
+                         </div>
+
+                        <div class="slds-text-heading_small" style="margin-top:2%;" >Total Amount:
+                           <apex:outputText id="cost" value="{!totalCost}"></apex:outputText>
+                        </div>
+                  </div>
+
+
+
+
+
+    </div>
+    <div style="margin-top:3% margin-bottom:5%;" class="slds-align_absolute-center">
+         <apex:commandButton action="{!adding}" value="Оформить заказ" styleClass="slds-button slds-button_brand"/>
+         <button type="button" class="slds-button slds-button_neutral"><apex:outputLink value="ProductPage?id={!prod.Id}">Отмена</apex:outputLink></button>
+    </div>
+  </apex:repeat>
+
+    </apex:form>
+
+
+
+
+
+
+</apex:page>
