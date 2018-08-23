@@ -30,7 +30,9 @@ public class Buy {
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.FATAL, 'This amount of items are not available now'));
         } else {
             /*update data about contact */
-
+        if (email == '') {
+                ApexPages.addMessage(new ApexPages.message(ApexPages.severity.FATAL, 'The Last Name field is required'));
+            } else {
             contact = [SELECT FirstName, LastName, Email FROM Contact WHERE Email = :email LIMIT 1];
             if (contact.size() > 0) {
                 contact[0].FirstName = firstName;
@@ -47,12 +49,13 @@ public class Buy {
             orderTableData = [SELECT Product__c, Units__c, Order_amount__c FROM Order_Table__c LIMIT 1];
             Order_Table__c newOrder = new Order_Table__c(Product__c = ApexPages.currentPage().getParameters().get('id'), Units__c = units, Order_amount__c = totalCost, Contact__c = contact[0].Id);
             orderTableData.add(newOrder);
-            insert orderTableData[1];
+            insert orderTableData[0];
             product[0].Units_Available__c = unitsAvailable - units; // change units available in product table
             update product[0];
             ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM, 'Thanks for your order'));
         }
     }
+}
 
     /* dynamicly change Total Amount field on the page*/
     public void calculating() {
